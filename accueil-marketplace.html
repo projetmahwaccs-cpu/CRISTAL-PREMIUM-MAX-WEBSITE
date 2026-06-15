@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crystal Shop — Accueil</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  /* ============ PALETTE (vert cristal CCL) ============ */
+  :root{
+    --green:#0E7A3A;        /* vert cristal (principal) */
+    --green-d:#0A5C2B;      /* vert profond (survol) */
+    --green-l:#2FA85A;        /* vert clair (dégradé hero) */
+    --green-tint:#E4F3EA;      /* vert très clair */
+    --red:#E84C3D;           /* barre flash + remises */
+    --blue:#2D8CD6;          /* bloc téléphone */
+    --ink:#2B2B2B;           /* texte */
+    --ink-soft:#6B6B6B;      /* texte secondaire */
+    --line:#ECECEC;          /* bordures */
+    --bg:#F4F4F4;            /* fond de page */
+    --ph:#E9E9E9;            /* fond des images placeholder */
+    --maxw:1280px;
+    font-family:"Poppins",system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-size:14px}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  button{font-family:inherit;cursor:pointer;border:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 16px}
+
+  /* placeholder image générique (à remplacer par tes <img src="images/...">) */
+  .ph{
+    background:var(--ph);display:grid;place-items:center;color:#B5B5B5;
+    background-image:linear-gradient(135deg,#efefef 25%,transparent 25%,transparent 50%,#efefef 50%,#efefef 75%,transparent 75%);
+    background-size:18px 18px;
+  }
+  .ph svg{opacity:.5}
+
+  /* ============ 1. BARRE PROMO (vert) ============ */
+  .topbar{background:var(--green);color:#fff}
+  .topbar .wrap{display:flex;align-items:center;gap:18px;height:54px;max-width:1500px}
+  .topbar .brand{font-weight:800;font-size:20px;letter-spacing:.5px;display:flex;align-items:center;gap:4px;white-space:nowrap}
+  .topbar .brand .shop{color:#fff}
+  .event{display:flex;align-items:center;gap:8px;font-weight:700;font-style:italic;white-space:nowrap}
+  .event .ball{width:22px;height:22px}
+  .topbar .slogan{font-size:14px;opacity:.95;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .topbar .promo-pic{flex:1;height:46px;border-radius:6px;min-width:120px}
+  .callbox{background:var(--blue);border-radius:8px;padding:8px 16px;display:flex;align-items:center;gap:10px;font-weight:700;white-space:nowrap}
+  .callbox small{display:block;font-weight:500;font-size:11px;opacity:.9}
+
+  /* ============ 2. SOUS-BARRE ============ */
+  .subbar{background:#fafafa;border-bottom:1px solid var(--line)}
+  .subbar .wrap{height:34px;display:flex;align-items:center}
+  .subbar a{color:var(--green);font-weight:600;font-size:13px;display:inline-flex;align-items:center;gap:6px}
+
+  /* ============ 3. HEADER PRINCIPAL ============ */
+  .mainhead{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:40}
+  .mainhead .wrap{display:flex;align-items:center;gap:24px;height:72px}
+  .mainhead .logo{font-weight:800;font-size:26px;display:flex;align-items:center;gap:3px;white-space:nowrap}
+  .mainhead .logo .shop{color:var(--green)}
+  .search{flex:1;display:flex;gap:8px;max-width:680px}
+  .search .field{flex:1;display:flex;align-items:center;gap:10px;background:#f3f3f3;border-radius:6px;padding:0 16px;height:46px}
+  .search input{flex:1;border:none;background:transparent;outline:none;font-size:14px;font-family:inherit}
+  .search .go{background:var(--green);color:#fff;border-radius:6px;padding:0 26px;font-weight:600;font-size:14px;transition:background .25s}
+  .search .go:hover{background:var(--green-d)}
+  .actions{display:flex;align-items:center;gap:22px}
+  .act{display:flex;align-items:center;gap:7px;font-weight:500;color:#444;white-space:nowrap;position:relative}
+  .act .badge{position:absolute;top:-6px;left:10px;background:var(--green);color:#fff;font-size:10px;font-weight:700;border-radius:50%;width:16px;height:16px;display:grid;place-items:center}
+  @media(max-width:860px){ .act span{display:none} .search{order:3;flex-basis:100%;max-width:none} .mainhead .wrap{flex-wrap:wrap;height:auto;padding-top:12px;padding-bottom:12px} }
+
+  /* ============ 4. HERO ============ */
+  .hero{position:relative;background:linear-gradient(180deg,var(--green) 0%,var(--green-l) 100%);padding:22px 0 30px;overflow:hidden}
+  /* rails décoratifs gauche/droite (les visuels "promo" sur les côtés) */
+  .rail{position:absolute;top:0;bottom:0;width:230px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;color:#fff;padding:20px}
+  .rail-left{left:0}.rail-right{right:0}
+  .rail .ev{font-weight:800;font-style:italic;font-size:30px;line-height:1;text-align:center;text-shadow:0 2px 6px rgba(0,0,0,.15)}
+  .rail .circle{width:150px;height:150px;border-radius:50%;background:var(--red);color:#fff;display:grid;place-items:center;text-align:center;font-weight:800;box-shadow:0 8px 20px rgba(0,0,0,.18)}
+  .rail .circle b{font-size:34px;display:block}
+  .rail .fan{width:185px;height:215px;border-radius:10px;object-fit:cover;object-position:center;background:#000;display:block}
+  @media(max-width:1500px){ .rail{display:none} }
+
+  .hero-inner{position:relative;z-index:2;max-width:var(--maxw);margin:0 auto;padding:0 16px;display:grid;grid-template-columns:230px 1fr 252px;gap:14px;align-items:stretch}
+  @media(max-width:1024px){ .hero-inner{grid-template-columns:1fr} }
+
+  /* 4a. sidebar catégories */
+  .cats{background:#fff;border-radius:8px;padding:8px 0;align-self:start}
+  .cats a{display:flex;align-items:center;gap:12px;padding:10px 18px;font-size:13.5px;font-weight:500;color:#3a3a3a;transition:background .2s,color .2s}
+  .cats a:hover{background:#EAF6EF;color:var(--green)}
+  .cats a svg{flex:none;color:#777}
+  .cats a:hover svg{color:var(--green)}
+  @media(max-width:1024px){ .cats{display:flex;flex-wrap:wrap;padding:6px} .cats a{padding:8px 12px} }
+
+  /* 4b. carrousel central */
+  .carousel{position:relative;background:linear-gradient(135deg,#16934A,#0E7A3A);border-radius:8px;overflow:hidden;min-height:380px;display:flex;color:#fff}
+  .carousel .copy{padding:34px 0 34px 36px;width:48%;display:flex;flex-direction:column;justify-content:center;z-index:2}
+  .carousel .kicker{background:#fff;color:var(--green);font-weight:800;font-size:30px;line-height:1;padding:6px 12px;border-radius:6px;align-self:flex-start;letter-spacing:.5px}
+  .carousel .sub{font-style:italic;font-weight:600;margin:10px 0 18px;font-size:15px;opacity:.95}
+  .carousel .model{font-weight:800;font-size:30px;line-height:1.1}
+  .carousel .spec{font-weight:500;font-size:15px;margin-bottom:14px;opacity:.95}
+  .carousel .price{background:#fff;color:var(--ink);font-weight:800;font-size:30px;padding:8px 22px;border-radius:40px;align-self:flex-start}
+  .carousel .old{margin-top:8px;text-decoration:line-through;opacity:.85;font-size:15px}
+  .carousel .buy{margin-top:18px;background:#fff;color:var(--ink);font-weight:700;padding:11px 22px;border-radius:40px;align-self:flex-start;display:inline-flex;gap:8px;align-items:center;transition:transform .25s}
+  .carousel .buy:hover{transform:translateY(-2px)}
+  .carousel .visual{position:absolute;right:0;top:0;bottom:0;width:55%;}
+  .carousel .visual .ph{height:100%;border-radius:0}
+  .dots{position:absolute;bottom:16px;left:36px;display:flex;gap:7px;z-index:3}
+  .dots i{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.5)}
+  .dots i.on{background:#fff;width:18px;border-radius:5px}
+  @media(max-width:560px){ .carousel .copy{width:100%;padding:24px} .carousel .visual{display:none} .carousel .kicker,.carousel .model,.carousel .price{font-size:24px} }
+
+  /* 4c. colonne aide */
+  .side-info{display:flex;flex-direction:column;gap:14px}
+  .info-card{background:#fff;border-radius:8px;padding:6px 0;flex:none}
+  .info-card .row{display:flex;align-items:center;gap:12px;padding:13px 16px}
+  .info-card .row + .row{border-top:1px solid var(--line)}
+  .info-card .ic{width:38px;height:38px;border-radius:50%;border:1.5px solid var(--green);color:var(--green);display:grid;place-items:center;flex:none}
+  .info-card .t{font-weight:600;font-size:13.5px}
+  .info-card .t small{display:block;font-weight:400;color:var(--ink-soft);font-size:12px}
+  .promo-mini{flex:1;border-radius:8px;min-height:120px}
+
+  /* ============ 5. SECTION OFFRES ============ */
+  .deals{margin:18px 0}
+  .deals .panel{background:#fff;border-radius:8px;padding:16px}
+  .deals-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+  .deals-head h2{font-size:18px;font-weight:700}
+  .deals-head h2 span{color:var(--ink-soft);font-weight:500}
+  .deals-head a{color:var(--green);font-weight:600;display:inline-flex;align-items:center;gap:4px;font-size:13.5px}
+  .deals-row{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+  @media(max-width:1100px){ .deals-row{grid-template-columns:repeat(3,1fr)} }
+  @media(max-width:620px){ .deals-row{grid-template-columns:repeat(2,1fr)} }
+
+  .pcard{border:1px solid var(--line);border-radius:8px;padding:10px;position:relative;transition:box-shadow .25s,transform .25s}
+  .pcard:hover{box-shadow:0 10px 22px -12px rgba(0,0,0,.25);transform:translateY(-3px)}
+  .pcard .disc{position:absolute;top:10px;right:10px;background:#DCF0E3;color:var(--green-d);font-weight:700;font-size:12px;padding:3px 8px;border-radius:5px;z-index:2}
+  .pcard .warranty{position:absolute;top:10px;left:10px;background:#1f8a4c;color:#fff;font-size:9px;font-weight:700;line-height:1.1;text-align:center;padding:5px 6px;border-radius:5px;z-index:2}
+  .pcard .pimg{aspect-ratio:1;border-radius:6px;margin-bottom:10px}
+  .pcard .pimg.ph{border-radius:6px}
+  .pcard h3{font-size:13px;font-weight:500;color:#3a3a3a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:6px}
+  .pcard .pr{font-weight:700;font-size:15px}
+  .pcard .po{text-decoration:line-through;color:var(--ink-soft);font-size:12px}
+
+  /* ============ 6. BARRE VENTES FLASH ============ */
+  .flashbar{background:var(--red);color:#fff;border-radius:8px;margin-bottom:24px}
+  .flashbar .row{display:flex;align-items:center;gap:14px;padding:14px 18px;flex-wrap:wrap}
+  .flashbar .title{font-weight:700;font-size:16px;display:flex;align-items:center;gap:8px}
+  .flashbar .timer{font-weight:600;margin-left:auto;display:flex;align-items:center;gap:8px}
+  .flashbar .timer b{background:rgba(0,0,0,.18);padding:3px 7px;border-radius:5px;font-variant-numeric:tabular-nums}
+  .flashbar .more{font-weight:600;display:inline-flex;align-items:center;gap:4px}
+  @media(max-width:620px){ .flashbar .timer{margin-left:0;width:100%} .flashbar .more{margin-left:auto} }
+</style>
+</head>
+<body>
+
+<!-- ====== 1. BARRE PROMO ORANGE ====== -->
+<div class="topbar">
+  <div class="wrap">
+    <!-- LOGO placeholder : remplace par ta marque -->
+    <div class="brand">CRYSTAL<span class="shop">&nbsp;SHOP</span></div>
+    <div class="event">
+      <svg class="ball" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7l3 2-1 4h-4l-1-4z"/></svg>
+      La fête du Foot
+    </div>
+    <div class="slogan">Faites vos achats au meilleur prix &amp; en toute confiance</div>
+    <!-- ICI une image promo : <img class="promo-pic" src="images/promo.jpg" alt=""> -->
+    <div class="promo-pic ph"></div>
+    <div class="callbox">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"><path d="M5 4h4l2 5-3 2a12 12 0 0 0 5 5l2-3 5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>
+      <div>Commander au<small>77 699 00 00</small></div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== 2. SOUS-BARRE ====== -->
+<div class="subbar">
+  <div class="wrap">
+    <a href="#"><svg width="14" height="14" viewBox="0 0 24 24" fill="var(--green)"><path d="M12 2l3 6 7 .6-5 4.5L18.5 21 12 17.5 5.5 21 7 13.1l-5-4.5L9 8z"/></svg> Vendez sur Crystal Shop</a>
+  </div>
+</div>
+
+<!-- ====== 3. HEADER PRINCIPAL ====== -->
+<header class="mainhead">
+  <div class="wrap">
+    <div class="logo">CRYSTAL<span class="shop">&nbsp;SHOP</span></div>
+    <div class="search">
+      <div class="field">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
+        <input type="text" placeholder="Cherchez un produit, une marque ou une catégorie">
+      </div>
+      <button class="go">Rechercher</button>
+    </div>
+    <div class="actions">
+      <a class="act" href="#">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="1.6"><circle cx="12" cy="8" r="4"/><path d="M4 20a8 8 0 0 1 16 0"/></svg>
+        <span>Se connecter ▾</span>
+      </a>
+      <a class="act" href="#">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.8.4-1 .9-1 1.7M12 17h.01"/></svg>
+        <span>Aide ▾</span>
+      </a>
+      <a class="act" href="#">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="1.6"><path d="M6 19a2 2 0 1 0 4 0M14 19a2 2 0 1 0 4 0"/><path d="M17 17H6V3H4M6 5l14 1-1 7H6"/></svg>
+        <span class="badge">1</span>
+        <span>Panier</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- ====== 4. HERO ====== -->
+<section class="hero">
+  <!-- rail décoratif gauche -->
+  <div class="rail rail-left">
+    <div class="ev">La fête du Foot</div>
+    <div class="circle"><div>JUSQU'À<b>-60%</b></div></div>
+    <!-- vidéo pub latérale gauche -->
+    <video class="fan" autoplay muted loop playsinline><source src="videos/femme-telephone.mp4" type="video/mp4"></video>
+  </div>
+  <!-- rail décoratif droite -->
+  <div class="rail rail-right">
+    <div class="ev">La fête du Foot</div>
+    <div class="circle"><div>JUSQU'À<b>-60%</b></div></div>
+    <!-- vidéo pub latérale droite -->
+    <video class="fan" autoplay muted loop playsinline><source src="videos/pub-banner.mp4" type="video/mp4"></video>
+  </div>
+
+  <div class="hero-inner">
+    <!-- 4a. catégories -->
+    <aside class="cats">
+      <a href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 9l1-5h16l1 5M5 9v11h14V9M9 13h6"/></svg> Boutiques Officielles</a>
+      <a href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="7" y="3" width="10" height="18" rx="2"/><path d="M11 18h2"/></svg> Téléphones &amp; Tablettes</a>
+      <a href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M9 21h6"/></svg> TV &amp; High Tech</a>
+      <a href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="6" y="3" width="12" height="18" rx="2"/><path d="M9 7h0M9 13h0"/></svg> Electroménager</a>
+      <a href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 20s-7-4.3-7-9a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 4.7-7 9-7 9z"/></svg> Santé &amp; Beauté</a>
+      <a href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 6h15l-2 9H8L6 6zM6 6L5 3H2"/><circle cx="9" cy="20" r="1"/><circle cx="17" cy="20" r="1"/></svg> Supermarché</a>
+      <a href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 4l3 2 3-2 5 4-3 3v9H7v-9L4 8z"/></svg> Mode</a>
+      <a href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11l9-7 9 7M5 10v10h14V10"/></svg> Maison et bureau</a>
+      <a href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="11" rx="1"/><path d="M2 20h20"/></svg> Informatique</a>
+      <a href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="9" r="5"/><path d="M9 13l-2 8 5-3 5 3-2-8"/></svg> Articles de sport</a>
+      <a href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="7" r="3"/><path d="M6 21v-4a6 6 0 0 1 12 0v4"/></svg> Produits pour bébés</a>
+      <a href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="6" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="18" cy="12" r="1.5"/></svg> Autres catégories</a>
+    </aside>
+
+    <!-- 4b. carrousel -->
+    <div class="carousel">
+      <div class="copy">
+        <div class="kicker">TÉLÉPHONES</div>
+        <div class="sub">Trouvez le téléphone qu'il vous faut</div>
+        <div class="model">Smartphone Pro</div>
+        <div class="spec">RAM 8 Go · écran 6,71"</div>
+        <div class="price">65 900 FCFA</div>
+        <div class="old">90 000 FCFA</div>
+        <a href="#" class="buy">J'ACHÈTE
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+      <!-- ICI l'image produit : <img class="..." src="images/smartphone.png" alt=""> -->
+      <div class="visual"><div class="ph"><svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="7" y="2" width="10" height="20" rx="2"/></svg></div></div>
+      <div class="dots"><i class="on"></i><i></i><i></i><i></i><i></i><i></i></div>
+    </div>
+
+    <!-- 4c. colonne aide -->
+    <div class="side-info">
+      <div class="info-card">
+        <div class="row">
+          <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.8.4-1 .9-1 1.7M12 17h.01"/></svg></div>
+          <div class="t">Centre d'assistance<small>Guide du service client</small></div>
+        </div>
+        <div class="row">
+          <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M5 4h4l2 5-3 2a12 12 0 0 0 5 5l2-3 5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></div>
+          <div class="t">Commandez au<small>77 699 00 00</small></div>
+        </div>
+        <div class="row">
+          <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 9l1-5h16l1 5M5 9v11h14V9"/></svg></div>
+          <div class="t">Vendez sur Crystal Shop<small>Ouvrez votre shop ici</small></div>
+        </div>
+      </div>
+      <!-- ICI image : <img class="promo-mini" src="images/fans.jpg" alt=""> -->
+      <div class="promo-mini ph"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== 5. SECTION OFFRES ====== -->
+<section class="deals">
+  <div class="wrap">
+    <div class="panel">
+      <div class="deals-head">
+        <h2>Journée Cooling <span>| Meilleures offres</span></h2>
+        <a href="#">Voir plus <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="deals-row">
+
+        <article class="pcard">
+          <span class="warranty">GARANTIE<br>12 MOIS</span>
+          <span class="disc">-33%</span>
+          <div class="pimg ph"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="6" width="18" height="6" rx="2"/><path d="M6 12v3M12 12v3M18 12v3"/></svg></div>
+          <h3>Climatiseur Split 12000 BTU</h3>
+          <div class="pr">119 900 FCFA</div>
+          <div class="po">180 000 FCFA</div>
+        </article>
+
+        <article class="pcard">
+          <span class="disc">-48%</span>
+          <div class="pimg ph"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="9" r="6"/><path d="M12 15v6M9 21h6"/></svg></div>
+          <h3>2 Ventilateurs sur pied</h3>
+          <div class="pr">31 825 FCFA</div>
+          <div class="po">60 686 FCFA</div>
+        </article>
+
+        <article class="pcard">
+          <span class="disc">-13%</span>
+          <div class="pimg ph"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="6" width="18" height="6" rx="2"/><path d="M6 12v3M12 12v3M18 12v3"/></svg></div>
+          <h3>Climatiseur Mural Smart</h3>
+          <div class="pr">129 900 FCFA</div>
+          <div class="po">150 000 FCFA</div>
+        </article>
+
+        <article class="pcard">
+          <span class="warranty" style="background:#2D8CD6">SPLIT<br>INVERTER</span>
+          <span class="disc">-32%</span>
+          <div class="pimg ph"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="6" width="18" height="6" rx="2"/><path d="M6 12v3M12 12v3M18 12v3"/></svg></div>
+          <h3>Climatiseur Inverter</h3>
+          <div class="pr">129 900 FCFA</div>
+          <div class="po">190 997 FCFA</div>
+        </article>
+
+        <article class="pcard">
+          <span class="disc">-32%</span>
+          <div class="pimg ph"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="6" width="18" height="6" rx="2"/><path d="M6 12v3M12 12v3M18 12v3"/></svg></div>
+          <h3>Climatiseur Split 9000 BTU</h3>
+          <div class="pr">99 900 FCFA</div>
+          <div class="po">146 654 FCFA</div>
+        </article>
+
+        <article class="pcard">
+          <span class="disc">-29%</span>
+          <div class="pimg ph"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="6" width="18" height="6" rx="2"/><path d="M6 12v3M12 12v3M18 12v3"/></svg></div>
+          <h3>Climatiseur Split NAC-S12</h3>
+          <div class="pr">123 900 FCFA</div>
+          <div class="po">175 000 FCFA</div>
+        </article>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== 6. BARRE VENTES FLASH ====== -->
+<section class="wrap">
+  <div class="flashbar">
+    <div class="row">
+      <div class="title">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M13 2L4 14h6l-1 8 9-12h-6z"/></svg>
+        Ventes flash - maintenant
+      </div>
+      <div class="timer">Termine dans : <b id="hh">00h</b> : <b id="mm">19m</b> : <b id="ss">10s</b></div>
+      <a href="#" class="more">Voir plus <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<script>
+  /* compte à rebours des ventes flash */
+  let total = 19*60 + 10; // 19m 10s
+  const hh=document.getElementById('hh'), mm=document.getElementById('mm'), ss=document.getElementById('ss');
+  setInterval(()=>{
+    if(total<=0) total = 19*60+10;
+    total--;
+    const h=Math.floor(total/3600), m=Math.floor((total%3600)/60), s=total%60;
+    hh.textContent=String(h).padStart(2,'0')+'h';
+    mm.textContent=String(m).padStart(2,'0')+'m';
+    ss.textContent=String(s).padStart(2,'0')+'s';
+  },1000);
+</script>
+</body>
+</html>
