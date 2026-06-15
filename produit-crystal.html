@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crystal Shop — 2 Ventilateurs muraux Deska 18"</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  /* ============ PALETTE (vert cristal CCL) ============ */
+  :root{
+    --green:#0E7A3A;         /* vert cristal (principal) */
+    --green-d:#0A5C2B;       /* vert profond (survol) */
+    --green-l:#2FA85A;       /* vert clair (dégradé hero) */
+    --green-tint:#E4F3EA;    /* vert très clair (fonds) */
+    --red:#E84C3D;           /* remises / urgence */
+    --blue:#2D8CD6;          /* bloc téléphone */
+    --ink:#2B2B2B;
+    --ink-soft:#6B6B6B;
+    --line:#ECECEC;
+    --bg:#F4F4F4;
+    --ph:#E9E9E9;
+    --maxw:1280px;
+    font-family:"Poppins",system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-size:14px}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  button{font-family:inherit;cursor:pointer;border:none;background:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 16px}
+  .ph{background:var(--ph);display:grid;place-items:center;color:#B5B5B5;
+    background-image:linear-gradient(135deg,#efefef 25%,transparent 25%,transparent 50%,#efefef 50%,#efefef 75%,transparent 75%);
+    background-size:18px 18px}
+
+  /* ============ BARRE PROMO ============ */
+  .topbar{background:var(--green);color:#fff}
+  .topbar .wrap{display:flex;align-items:center;gap:18px;height:54px;max-width:1500px}
+  .topbar .brand{font-weight:800;font-size:20px;letter-spacing:.5px;display:flex;align-items:center;gap:4px;white-space:nowrap}
+  .topbar .brand .shop{color:#fff}
+  .event{display:flex;align-items:center;gap:8px;font-weight:700;font-style:italic;white-space:nowrap}
+  .topbar .slogan{font-size:14px;opacity:.95;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .topbar .promo-pic{flex:1;height:46px;border-radius:6px;min-width:120px}
+  .callbox{background:var(--blue);border-radius:8px;padding:8px 16px;display:flex;align-items:center;gap:10px;font-weight:700;white-space:nowrap}
+  .callbox small{display:block;font-weight:500;font-size:11px;opacity:.9}
+  @media(max-width:900px){ .topbar .slogan,.event{display:none} }
+
+  /* ============ SOUS-BARRE ============ */
+  .subbar{background:#fafafa;border-bottom:1px solid var(--line)}
+  .subbar .wrap{height:34px;display:flex;align-items:center}
+  .subbar a{color:var(--green);font-weight:600;font-size:13px;display:inline-flex;align-items:center;gap:6px}
+
+  /* ============ HEADER ============ */
+  .mainhead{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:40}
+  .mainhead .wrap{display:flex;align-items:center;gap:18px;height:72px}
+  .burger{color:#444;display:grid;place-items:center}
+  .mainhead .logo{font-weight:800;font-size:26px;display:flex;align-items:center;gap:3px;white-space:nowrap}
+  .mainhead .logo .shop{color:var(--green)}
+  .search{flex:1;display:flex;gap:8px;max-width:620px}
+  .search .field{flex:1;display:flex;align-items:center;gap:10px;background:#f3f3f3;border-radius:6px;padding:0 16px;height:46px}
+  .search input{flex:1;border:none;background:transparent;outline:none;font-size:14px;font-family:inherit}
+  .search .go{background:var(--green);color:#fff;border-radius:6px;padding:0 26px;font-weight:600;font-size:14px;transition:background .25s}
+  .search .go:hover{background:var(--green-d)}
+  .actions{display:flex;align-items:center;gap:22px}
+  .act{display:flex;align-items:center;gap:7px;font-weight:500;color:#444;white-space:nowrap;position:relative}
+  .act .badge{position:absolute;top:-6px;left:10px;background:var(--green);color:#fff;font-size:10px;font-weight:700;border-radius:50%;width:16px;height:16px;display:grid;place-items:center}
+  @media(max-width:860px){ .act span,.search{display:none} }
+
+  /* ============ FIL D'ARIANE ============ */
+  .crumb{padding:14px 0;color:var(--ink-soft);font-size:12.5px}
+  .crumb a:hover{color:var(--green)}
+  .crumb .sep{margin:0 7px;color:#bbb}
+  .crumb .cur{color:#444}
+
+  /* ============ LAYOUT PRODUIT ============ */
+  .product{display:grid;grid-template-columns:380px 1fr 320px;gap:16px;align-items:start;padding-bottom:30px}
+  @media(max-width:1080px){ .product{grid-template-columns:1fr 1fr} .product .delivery{grid-column:1 / -1} }
+  @media(max-width:760px){ .product{grid-template-columns:1fr} }
+  .panel{background:#fff;border-radius:8px}
+
+  /* galerie */
+  .gallery{padding:16px}
+  .gmain{position:relative;border:1px solid var(--line);border-radius:8px;aspect-ratio:1;overflow:hidden}
+  .gmain .brandtag{position:absolute;top:12px;left:12px;z-index:2;font-weight:800;color:var(--green-d);font-size:14px;letter-spacing:.5px}
+  /* ICI l'image produit : <img src="images/ventilateur.jpg" alt=""> */
+  .gthumbs{display:flex;gap:10px;margin-top:14px}
+  .gthumbs .t{width:62px;height:62px;border:1px solid var(--line);border-radius:6px;cursor:pointer}
+  .gthumbs .t.on{border-color:var(--green);border-width:2px}
+  .share{margin-top:20px;border-top:1px solid var(--line);padding-top:16px}
+  .share .lbl{font-weight:600;font-size:12px;letter-spacing:.04em;color:#555;margin-bottom:12px}
+  .share .icons{display:flex;gap:10px}
+  .share .icons a{width:36px;height:36px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;color:#555;transition:.2s}
+  .share .icons a:hover{border-color:var(--green);color:var(--green)}
+
+  /* infos */
+  .info{padding:20px;position:relative}
+  .wish{position:absolute;top:18px;right:18px;width:40px;height:40px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;color:#999;transition:.2s}
+  .wish.on{color:var(--green);border-color:var(--green)}
+  .wish.on svg{fill:var(--green)}
+  .badges{display:flex;gap:8px;margin-bottom:12px}
+  .b{font-size:11px;font-weight:700;padding:4px 10px;border-radius:4px;color:#fff;letter-spacing:.02em}
+  .b.officielle{background:var(--green-d)}
+  .b.deal{background:var(--green)}
+  .info h1{font-size:21px;font-weight:600;line-height:1.3;margin-bottom:10px;max-width:46ch}
+  .brandline{font-size:13px;color:var(--ink-soft);margin-bottom:16px}
+  .brandline a{color:var(--green);font-weight:600}
+  .priceblock{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .price{font-size:28px;font-weight:800}
+  .old{text-decoration:line-through;color:var(--ink-soft);font-size:15px}
+  .pct{background:var(--green-tint);color:var(--green-d);font-weight:700;font-size:12px;padding:3px 8px;border-radius:5px}
+  .stock{color:var(--green-d);font-weight:600;font-size:13px;margin-top:8px}
+  .express{display:flex;align-items:center;gap:8px;margin-top:12px;font-size:13px;color:#444}
+  .express .tagx{background:var(--green-d);color:#fff;font-weight:700;font-size:10px;padding:3px 8px;border-radius:4px;letter-spacing:.04em}
+  .rating{display:flex;align-items:center;gap:8px;margin-top:12px;font-size:13px}
+  .stars{color:#F4B400;letter-spacing:1px;font-size:16px}
+  .rating a{color:var(--green);font-weight:500}
+
+  .buyrow{display:flex;align-items:center;gap:14px;margin-top:20px;flex-wrap:wrap}
+  .qty{display:flex;align-items:center;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  .qty button{width:42px;height:48px;font-size:18px;color:var(--green-d);font-weight:700}
+  .qty button:hover{background:var(--green-tint)}
+  .qty span{width:46px;text-align:center;font-weight:600;font-size:15px}
+  .buy{flex:1;min-width:220px;height:48px;background:var(--green);color:#fff;border-radius:8px;font-weight:600;font-size:16px;display:inline-flex;align-items:center;justify-content:center;gap:10px;transition:background .25s}
+  .buy:hover{background:var(--green-d)}
+
+  .promos{margin-top:26px;border-top:1px solid var(--line);padding-top:18px}
+  .promos h3{font-size:13px;font-weight:700;letter-spacing:.06em;color:#555;margin-bottom:14px}
+  .promo{display:flex;gap:12px;margin-bottom:14px;font-size:13px;line-height:1.45;color:#444}
+  .promo svg{flex:none;color:var(--green);margin-top:1px}
+
+  /* livraison + vendeur */
+  .delivery{display:flex;flex-direction:column;gap:16px}
+  .card{background:#fff;border-radius:8px;padding:16px}
+  .card .head{font-size:13px;font-weight:700;letter-spacing:.04em;color:#555;display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+  .card .head .chev{color:#bbb}
+  .field-lbl{font-size:13px;font-weight:600;margin-bottom:10px}
+  .select{position:relative;margin-bottom:10px}
+  .select select{width:100%;height:46px;border:1px solid var(--line);border-radius:6px;padding:0 14px;font-family:inherit;font-size:14px;color:#333;appearance:none;background:#fff;cursor:pointer}
+  .select svg{position:absolute;right:14px;top:50%;transform:translateY(-50%);pointer-events:none;color:#888}
+  .xbanner{background:var(--green-d);color:#fff;border-radius:6px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;font-size:12.5px;font-weight:600;margin:14px 0}
+  .xbanner a{text-decoration:underline}
+  .drow{display:flex;gap:12px;padding:14px 0;border-top:1px solid var(--line)}
+  .drow .ic{width:34px;height:34px;flex:none;color:var(--green)}
+  .drow .t{flex:1;font-size:13px}
+  .drow .t b{display:block;font-weight:600;margin-bottom:2px}
+  .drow .t small{color:var(--ink-soft);display:block;line-height:1.4}
+  .drow .det{color:var(--green);font-weight:600;font-size:12.5px;white-space:nowrap}
+
+  .seller .name{font-weight:700;font-size:15px;margin-bottom:10px}
+  .seller .stat{font-size:13px;color:#444;margin-bottom:4px}
+  .seller .stat b{font-weight:600}
+  .follow{margin-top:10px;background:var(--green);color:#fff;border-radius:6px;padding:9px 22px;font-weight:600;font-size:13px;transition:background .25s}
+  .follow:hover{background:var(--green-d)}
+  .follow.on{background:#fff;color:var(--green);border:1px solid var(--green)}
+  .perf{margin-top:16px;border-top:1px solid var(--line);padding-top:14px}
+  .perf .h{font-size:13px;font-weight:600;display:flex;align-items:center;gap:6px;margin-bottom:10px;color:#444}
+  .perf .li{display:flex;align-items:center;gap:8px;font-size:13px;color:#444;margin-bottom:6px}
+  .perf .li svg{color:var(--green)}
+</style>
+</head>
+<body>
+
+<!-- ===== BARRE PROMO ===== -->
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand">CRYSTAL<span class="shop">&nbsp;SHOP</span></div>
+    <div class="event">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7l3 2-1 4h-4l-1-4z"/></svg>
+      La fête du Foot
+    </div>
+    <div class="slogan">Faites vos achats au meilleur prix &amp; en toute confiance</div>
+    <!-- ICI bannière promo : <img class="promo-pic" src="images/promo.jpg" alt=""> -->
+    <div class="promo-pic ph"></div>
+    <div class="callbox">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"><path d="M5 4h4l2 5-3 2a12 12 0 0 0 5 5l2-3 5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>
+      <div>Commander au<small>77 699 00 00</small></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SOUS-BARRE ===== -->
+<div class="subbar">
+  <div class="wrap">
+    <a href="#"><svg width="14" height="14" viewBox="0 0 24 24" fill="var(--green)"><path d="M12 2l3 6 7 .6-5 4.5L18.5 21 12 17.5 5.5 21 7 13.1l-5-4.5L9 8z"/></svg> Vendez sur Crystal Shop</a>
+  </div>
+</div>
+
+<!-- ===== HEADER ===== -->
+<header class="mainhead">
+  <div class="wrap">
+    <button class="burger" aria-label="Menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+    <a href="#" class="logo">CRYSTAL<span class="shop">&nbsp;SHOP</span></a>
+    <div class="search">
+      <div class="field">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
+        <input type="text" placeholder="Cherchez un produit, une marque ou une catégorie">
+      </div>
+      <button class="go">Rechercher</button>
+    </div>
+    <div class="actions">
+      <a class="act" href="#"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="1.6"><circle cx="12" cy="8" r="4"/><path d="M4 20a8 8 0 0 1 16 0"/></svg><span>Se connecter ▾</span></a>
+      <a class="act" href="#"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.8.4-1 .9-1 1.7M12 17h.01"/></svg><span>Aide ▾</span></a>
+      <a class="act" href="#"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="1.6"><path d="M6 19a2 2 0 1 0 4 0M14 19a2 2 0 1 0 4 0"/><path d="M17 17H6V3H4M6 5l14 1-1 7H6"/></svg><span class="badge">1</span><span>Panier</span></a>
+    </div>
+  </div>
+</header>
+
+<!-- ===== FIL D'ARIANE ===== -->
+<div class="wrap">
+  <nav class="crumb">
+    <a href="#">Accueil</a><span class="sep">›</span>
+    <a href="#">Maison et bureau</a><span class="sep">›</span>
+    <a href="#">Cuisine &amp; Maison</a><span class="sep">›</span>
+    <a href="#">Chauffage &amp; Ventilation</a><span class="sep">›</span>
+    <a href="#">Ventilateurs</a><span class="sep">›</span>
+    <a href="#">Ventilateurs muraux</a><span class="sep">›</span>
+    <span class="cur">2 Ventilateurs muraux avec télécommande 18 Pouces - FW-47NO - Noir</span>
+  </nav>
+</div>
+
+<!-- ===== PRODUIT ===== -->
+<main class="wrap">
+  <div class="product">
+
+    <!-- GALERIE -->
+    <section class="panel gallery">
+      <div class="gmain ph">
+        <span class="brandtag">DESKA</span>
+        <!-- ICI : <img src="images/ventilateurs-mural.jpg" alt="2 ventilateurs muraux Deska"> -->
+        <svg width="70" height="70" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="12" cy="9" r="6"/><path d="M12 9l4-2M12 9l-1 4.5M12 9l-3-3M12 15v6M9 21h6"/></svg>
+      </div>
+      <!-- ICI tes autres photos en miniatures : <img class="t" src="images/..."> -->
+      <div class="gthumbs">
+        <div class="t on ph"></div>
+        <div class="t ph"></div>
+        <div class="t ph"></div>
+        <div class="t ph"></div>
+      </div>
+      <div class="share">
+        <div class="lbl">PARTAGEZ CE PRODUIT</div>
+        <div class="icons">
+          <a href="#" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M14 9h3V6h-3c-2 0-3 1-3 3v2H8v3h3v7h3v-7h2.5l.5-3H14V9z"/></svg></a>
+          <a href="#" aria-label="X"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3l7 9-7 9h2l6-7.5L17 21h4l-7.5-9.5L20 3h-2l-5.5 6.8L7 3H3z"/></svg></a>
+          <a href="#" aria-label="WhatsApp"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.5A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.9.9.9-2.8-.2-.3A8 8 0 1 1 12 20zm4.4-6c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1-.6.8-.8 1-.3.1-.5 0a6.5 6.5 0 0 1-1.9-1.2 7 7 0 0 1-1.3-1.6c-.1-.2 0-.4.1-.5l.4-.4.2-.4v-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a1 1 0 0 0-.7.3 2.9 2.9 0 0 0-.9 2.2 5 5 0 0 0 1.1 2.7 11.5 11.5 0 0 0 4.4 3.9c2 .8 2 .5 2.4.5a2.6 2.6 0 0 0 1.7-1.2 2.1 2.1 0 0 0 .2-1.2c0-.1-.2-.2-.4-.3z"/></svg></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- INFOS -->
+    <section class="panel info">
+      <button class="wish" id="wish" aria-label="Ajouter aux favoris">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 20s-7-4.3-7-9a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 4.7-7 9-7 9z"/></svg>
+      </button>
+
+      <div class="badges">
+        <span class="b officielle">Boutique Officielle</span>
+        <span class="b deal">SUPER DEAL</span>
+      </div>
+
+      <h1>Deska 2 Ventilateurs muraux avec télécommande 18 Pouces - FW-47NO - Noir</h1>
+      <div class="brandline">Marque : <a href="#">Deska</a> | <a href="#">Produits similaires par Deska</a></div>
+
+      <div class="priceblock">
+        <div class="price">29 900 FCFA</div>
+        <div class="old">60 686 FCFA</div>
+        <div class="pct">-51%</div>
+      </div>
+      <div class="stock">Quelques articles restants</div>
+
+      <div class="express">
+        <span class="tagx">CRYSTAL EXPRESS</span> Recevez votre commande en 4 heures
+      </div>
+
+      <div class="rating">
+        <span class="stars">★★★★<span style="color:#ddd">★</span></span>
+        <a href="#">(125 avis vérifiés)</a>
+      </div>
+
+      <div class="buyrow">
+        <div class="qty">
+          <button onclick="step(-1)" aria-label="Moins">−</button>
+          <span id="qty">1</span>
+          <button onclick="step(1)" aria-label="Plus">+</button>
+        </div>
+        <button class="buy" onclick="commander()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"><path d="M6 19a2 2 0 1 0 4 0M14 19a2 2 0 1 0 4 0"/><path d="M17 17H6V3H4M6 5l14 1-1 7H6"/></svg>
+          J'achète
+        </button>
+      </div>
+
+      <div class="promos">
+        <h3>PROMOTIONS</h3>
+        <div class="promo">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M5 4h4l2 5-3 2a12 12 0 0 0 5 5l2-3 5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>
+          Besoin d'aide pour commander ? Appelez-nous au 77 699 00 00.
+        </div>
+        <div class="promo">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 3L2 11l7 3 3 7 10-18z"/></svg>
+          Prépayez avec Orange Money ou Wave dès 10 000 FCFA et bénéficiez de la livraison gratuite, en point relais, jusqu'à 5 000 FCFA offerts.
+        </div>
+        <div class="promo">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 9l1-5h16l1 5M5 9v11h14V9M9 13h6"/></svg>
+          Payez moins de frais en choisissant la livraison dans nos agences.
+        </div>
+      </div>
+    </section>
+
+    <!-- LIVRAISON + VENDEUR -->
+    <aside class="delivery">
+      <div class="card">
+        <div class="head">LIVRAISON &amp; RETOURS <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></div>
+        <div class="field-lbl">Choisissez le lieu</div>
+        <div class="select">
+          <select><option>Dakar</option><option>Thiès</option><option>Saint-Louis</option></select>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="select">
+          <select><option>Medina</option><option>Plateau</option><option>Hann Mariste</option></select>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+
+        <div class="xbanner"><span>Recevez votre commande en 4 heures</span><a href="#">Détails</a></div>
+
+        <div class="drow">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7M6 19a2 2 0 1 0 4 0M16 19a2 2 0 1 0 4 0"/></svg>
+          <div class="t"><b>Livraison Express</b><small>Frais de livraison 3 005 FCFA</small></div>
+        </div>
+        <div class="drow">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 21V8l8-5 8 5v13M9 21v-6h6v6"/></svg>
+          <div class="t"><b>Point relais</b><small>Frais de livraison 1 000 FCFA</small><small>Prêt pour le retrait le 16 juin si vous commandez dans les 3h49min</small></div>
+          <a class="det" href="#">Détails</a>
+        </div>
+        <div class="drow">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 11l9-7 9 7M5 10v10h14V10"/></svg>
+          <div class="t"><b>Livraison à domicile</b><small>Frais de livraison 2 400 FCFA</small><small>Prêt pour la livraison le 16 juin si vous commandez dans les 3h49min</small></div>
+          <a class="det" href="#">Détails</a>
+        </div>
+        <div class="drow">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 12a9 9 0 1 1 3 6.7M3 12V7m0 5h5"/></svg>
+          <div class="t"><b>Politique de retour</b><small>Retours gratuits sous 7 jours</small></div>
+          <a class="det" href="#">Détails</a>
+        </div>
+      </div>
+
+      <div class="card seller">
+        <div class="head">INFORMATIONS SUR LE VENDEUR <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></div>
+        <div class="name">Astech SN</div>
+        <div class="stat"><b>72%</b> Évaluation du vendeur</div>
+        <div class="stat"><b>1189</b> Abonnés</div>
+        <button class="follow" id="follow" onclick="toggleFollow()">Suivre</button>
+        <div class="perf">
+          <div class="h">Performance vendeur <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg></div>
+          <div class="li"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Vitesse d'expédition : Bon</div>
+        </div>
+      </div>
+    </aside>
+
+  </div>
+</main>
+
+<script>
+  /* numéro WhatsApp (77 699 00 00 -> indicatif 221) */
+  const WA = "221776990000";
+  const PRODUIT = "Deska 2 Ventilateurs muraux avec télécommande 18 Pouces - FW-47NO - Noir";
+  const PRIX = "29 900 FCFA";
+  let qte = 1;
+
+  function step(n){
+    qte = Math.max(1, qte + n);
+    document.getElementById('qty').textContent = qte;
+  }
+
+  function commander(){
+    const msg =
+`Bonjour Crystal Shop, je souhaite commander :
+
+• Produit : ${PRODUIT}
+• Quantité : ${qte}
+• Prix unitaire : ${PRIX}
+
+Merci de me confirmer la disponibilité et la livraison.`;
+    window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`, '_blank');
+  }
+
+  document.getElementById('wish').addEventListener('click', e => {
+    e.currentTarget.classList.toggle('on');
+  });
+
+  function toggleFollow(){
+    const b = document.getElementById('follow');
+    const on = b.classList.toggle('on');
+    b.textContent = on ? 'Suivi ✓' : 'Suivre';
+  }
+</script>
+</body>
+</html>
