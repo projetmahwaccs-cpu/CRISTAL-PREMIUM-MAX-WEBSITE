@@ -106,6 +106,7 @@
   .carousel .buy:hover{transform:translateY(-2px)}
   .carousel .visual{position:absolute;right:0;top:0;bottom:0;width:55%;}
   .carousel .visual .ph{height:100%;border-radius:0}
+  .carousel .visual video{width:100%;height:100%;object-fit:cover;display:block}
   .dots{position:absolute;bottom:16px;left:36px;display:flex;gap:7px;z-index:3}
   .dots i{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.5)}
   .dots i.on{background:#fff;width:18px;border-radius:5px}
@@ -119,7 +120,7 @@
   .info-card .ic{width:38px;height:38px;border-radius:50%;border:1.5px solid var(--green);color:var(--green);display:grid;place-items:center;flex:none}
   .info-card .t{font-weight:600;font-size:13.5px}
   .info-card .t small{display:block;font-weight:400;color:var(--ink-soft);font-size:12px}
-  .promo-mini{flex:1;border-radius:8px;min-height:120px}
+  .promo-mini{flex:1;border-radius:8px;min-height:120px;width:100%;object-fit:cover;background:#000;display:block}
 
   /* ============ 5. SECTION OFFRES ============ */
   .deals{margin:18px 0}
@@ -132,11 +133,11 @@
   @media(max-width:1100px){ .deals-row{grid-template-columns:repeat(3,1fr)} }
   @media(max-width:620px){ .deals-row{grid-template-columns:repeat(2,1fr)} }
 
-  .pcard{border:1px solid var(--line);border-radius:8px;padding:10px;position:relative;transition:box-shadow .25s,transform .25s}
-  .pcard:hover{box-shadow:0 10px 22px -12px rgba(0,0,0,.25);transform:translateY(-3px)}
+  .pcard{border:1px solid transparent;border-radius:8px;padding:10px;position:relative;transition:box-shadow .25s,transform .25s,border-color .25s}
+  .pcard:hover,.pcard:active{box-shadow:0 10px 22px -12px rgba(0,0,0,.25);transform:translateY(-3px);border-color:#e6e6e6}
   .pcard .disc{position:absolute;top:10px;right:10px;background:#DCF0E3;color:var(--green-d);font-weight:700;font-size:12px;padding:3px 8px;border-radius:5px;z-index:2}
   .pcard .warranty{position:absolute;top:10px;left:10px;background:#1f8a4c;color:#fff;font-size:9px;font-weight:700;line-height:1.1;text-align:center;padding:5px 6px;border-radius:5px;z-index:2}
-  .pcard .pimg{aspect-ratio:1;border-radius:6px;margin-bottom:10px}
+  .pcard .pimg{width:100%;aspect-ratio:1;border-radius:6px;margin-bottom:10px;object-fit:cover;background:#f6f6f6;display:block}
   .pcard .pimg.ph{border-radius:6px}
   .pcard h3{font-size:13px;font-weight:500;color:#3a3a3a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:6px}
   .pcard .pr{font-weight:700;font-size:15px}
@@ -150,6 +151,93 @@
   .flashbar .timer b{background:rgba(0,0,0,.18);padding:3px 7px;border-radius:5px;font-variant-numeric:tabular-nums}
   .flashbar .more{font-weight:600;display:inline-flex;align-items:center;gap:4px}
   @media(max-width:620px){ .flashbar .timer{margin-left:0;width:100%} .flashbar .more{margin-left:auto} }
+  /* ===== Quick view (fiche produit sur l'accueil) ===== */
+  .qv-overlay{position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;padding:20px}
+  .qv-overlay.open{display:flex}
+  .qv-bg{position:absolute;inset:0;background:rgba(0,0,0,.55)}
+  .qv-card{position:relative;z-index:2;background:#fff;border-radius:12px;max-width:820px;width:100%;max-height:90vh;overflow:auto;display:grid;grid-template-columns:1fr 1fr}
+  @media(max-width:680px){ .qv-card{grid-template-columns:1fr} }
+  .qv-x{position:absolute;top:12px;right:12px;z-index:3;width:36px;height:36px;border-radius:50%;background:#f2f2f2;font-size:22px;line-height:1;color:#555;border:none;cursor:pointer}
+  .qv-x:hover{background:#e6e6e6}
+  .qv-img{background:#f6f6f6;display:flex;align-items:center;justify-content:center;padding:24px;min-height:300px}
+  .qv-img img{max-width:100%;max-height:380px;object-fit:contain}
+  .qv-info{padding:30px}
+  .qv-badges{display:flex;gap:8px;margin-bottom:14px}
+  .qv-b{font-size:11px;font-weight:700;padding:4px 10px;border-radius:4px;color:#fff;letter-spacing:.02em}
+  .qv-b.officielle{background:var(--green-d)}
+  .qv-b.cat{background:var(--green)}
+  .qv-name{font-size:20px;font-weight:600;line-height:1.3;margin-bottom:14px}
+  .qv-priceblock{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .qv-price{font-size:26px;font-weight:800}
+  .qv-old{text-decoration:line-through;color:var(--ink-soft);font-size:15px}
+  .qv-disc{background:var(--green-tint);color:var(--green-d);font-weight:700;font-size:12px;padding:3px 8px;border-radius:5px}
+  .qv-desc{color:var(--ink-soft);font-size:14px;line-height:1.55;margin:16px 0 22px}
+  .qv-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .qv-qty{display:flex;align-items:center;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  .qv-qty button{width:40px;height:46px;font-size:18px;color:var(--green-d);font-weight:700;background:none;border:none;cursor:pointer}
+  .qv-qty button:hover{background:var(--green-tint)}
+  .qv-qty span{width:44px;text-align:center;font-weight:600}
+  .qv-buy{flex:1;min-width:180px;height:46px;background:var(--green);color:#fff;border-radius:8px;font-weight:600;font-size:15px;display:inline-flex;align-items:center;justify-content:center;gap:10px;border:none;cursor:pointer}
+  .qv-buy:hover{background:var(--green-d)}
+  .qv-note{margin-top:14px;font-size:12.5px;color:var(--ink-soft)}
+  body.no-scroll{overflow:hidden}
+  /* ===== Sections par catégorie (style Jumia) ===== */
+  .cat-section{background:#fff;border-radius:8px;overflow:hidden;margin-bottom:16px}
+  .cat-bar{background:var(--green);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:13px 18px}
+  .cat-bar h2{font-size:17px;font-weight:700}
+  .cat-bar a{color:#fff;font-weight:600;font-size:13.5px;display:inline-flex;align-items:center;gap:4px;opacity:.95}
+  .cat-bar a:hover{opacity:1}
+  .cat-row{display:flex;gap:14px;padding:16px;overflow-x:auto;scroll-snap-type:x mandatory}
+  .cat-row::-webkit-scrollbar{height:8px}
+  .cat-row::-webkit-scrollbar-thumb{background:#ddd;border-radius:4px}
+  .cat-row .pcard{flex:0 0 180px;scroll-snap-align:start}
+  @media(max-width:620px){ .cat-row .pcard{flex:0 0 150px} }
+  /* ===== Offres incontournables (tuiles promo) ===== */
+  .promo-head{background:var(--green);color:#fff;text-align:center;font-weight:600;font-size:15px;padding:11px;border-radius:8px;margin-bottom:14px}
+  .promo-panel{background:#fff;border-radius:8px;padding:16px}
+  .promo-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:720px){ .promo-grid{grid-template-columns:1fr} }
+  .promo-tile{position:relative;border-radius:10px;overflow:hidden;background:var(--green);color:#fff;min-height:160px;display:flex;align-items:center;padding:20px 22px}
+  .promo-tile::before{content:"";position:absolute;inset:0;background:linear-gradient(110deg,var(--green) 58%,var(--green-d) 58%)}
+  .promo-tile>*{position:relative;z-index:1}
+  .promo-tile .pt-left{flex:1;min-width:0}
+  .promo-tile .ship{display:inline-block;background:var(--red);color:#fff;font-size:9px;font-weight:700;line-height:1.15;padding:5px 9px;border-radius:5px;transform:rotate(-6deg);margin-bottom:12px;box-shadow:0 2px 6px rgba(0,0,0,.25)}
+  .promo-tile .pt-name{font-size:18px;font-weight:700;line-height:1.2;margin-bottom:12px;max-width:13ch}
+  .promo-tile .pt-pill{display:inline-block;background:var(--red);color:#fff;font-size:21px;font-weight:800;padding:6px 16px;border-radius:6px}
+  .promo-tile .pt-old{display:block;text-decoration:line-through;opacity:.85;font-size:13px;margin-top:7px}
+  .promo-tile .pt-circle{flex:none;width:130px;height:130px;border-radius:50%;overflow:hidden;background:#fff;margin-left:10px}
+  .promo-tile .pt-circle img{width:100%;height:100%;object-fit:cover}
+  @media(max-width:420px){ .promo-tile .pt-circle{width:100px;height:100px} .promo-tile .pt-name{font-size:16px} .promo-tile .pt-pill{font-size:18px} }
+
+  /* ===== Bannière "La mode par Crystal Shop" ===== */
+  .mode-block{margin-top:18px}
+  .mode-banner{position:relative;border-radius:8px;overflow:hidden;background:linear-gradient(110deg,var(--green) 60%,var(--green-l) 60%);color:#fff;display:flex;align-items:center;min-height:200px;padding:30px 36px}
+  .mode-banner .mb-text{flex:1}
+  .mode-banner .mb-text h3{font-size:28px;font-weight:800;line-height:1.1;margin-bottom:10px}
+  .mode-banner .mb-text p{font-size:15px;opacity:.92;max-width:34ch;margin-bottom:18px}
+  .mode-banner .mb-btn{display:inline-block;background:#fff;color:var(--green-d);font-weight:700;padding:11px 24px;border-radius:40px;font-size:14px}
+  .mode-banner .mb-img{flex:none;width:170px;height:170px;border-radius:50%;overflow:hidden;background:#fff;margin-left:20px}
+  .mode-banner .mb-img img{width:100%;height:100%;object-fit:cover}
+  @media(max-width:600px){ .mode-banner{flex-direction:column;text-align:center;gap:18px} .mode-banner .mb-img{margin:0} }
+  /* ===== Bannière paiement (Orange Money / Wave) ===== */
+  .pay-banner{position:relative;border-radius:10px;overflow:hidden;background:linear-gradient(110deg,var(--green) 62%,var(--green-d) 62%);color:#fff;display:flex;align-items:center;gap:24px;padding:30px 40px;min-height:190px}
+  .pay-banner .pb-left{flex:1;min-width:0;z-index:1}
+  .pay-banner .pb-brand{font-weight:800;font-size:18px;letter-spacing:.5px;margin-bottom:12px;display:flex;align-items:center}
+  .pay-banner .pb-brand .shop{color:#fff}
+  .pay-banner .pb-pre{font-size:18px;font-weight:500;margin-bottom:4px}
+  .pay-banner .pb-pre b{font-weight:800}
+  .pay-banner .pb-big{display:flex;align-items:center;gap:14px;margin:6px 0}
+  .pay-banner .pb-eq{font-size:46px;font-weight:800;color:var(--red);line-height:1}
+  .pay-banner .pb-txt{font-size:30px;font-weight:800;line-height:1.05}
+  .pay-banner .pb-txt small{display:block;font-size:16px;font-weight:600}
+  .pay-banner .pb-fine{font-size:12px;opacity:.85;margin-top:12px;max-width:52ch;line-height:1.45}
+  .pay-banner .pb-fine b{font-weight:700;opacity:1}
+  .pay-banner .pb-right{flex:none;display:flex;flex-direction:column;gap:12px;z-index:1}
+  .pay-chip{background:#fff;border-radius:10px;padding:11px 18px;display:flex;align-items:center;gap:10px;color:var(--ink);font-weight:700;font-size:15px;box-shadow:0 4px 12px rgba(0,0,0,.18)}
+  .pay-chip .dot{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:11px;font-weight:800;flex:none}
+  .pay-chip .wave-dot{background:#1DC8E8}
+  .pay-chip .om-dot{background:#FF7900}
+  @media(max-width:640px){ .pay-banner{flex-direction:column;text-align:center;padding:24px} .pay-banner .pb-big{justify-content:center} .pay-banner .pb-right{flex-direction:row;flex-wrap:wrap;justify-content:center} .pay-banner .pb-fine{margin-left:auto;margin-right:auto} }
 </style>
 </head>
 <body>
@@ -246,18 +334,16 @@
     <!-- 4b. carrousel -->
     <div class="carousel">
       <div class="copy">
-        <div class="kicker">TÉLÉPHONES</div>
-        <div class="sub">Trouvez le téléphone qu'il vous faut</div>
-        <div class="model">Smartphone Pro</div>
-        <div class="spec">RAM 8 Go · écran 6,71"</div>
-        <div class="price">65 900 FCFA</div>
-        <div class="old">90 000 FCFA</div>
-        <a href="#" class="buy">J'ACHÈTE
+        <div class="kicker">FÊTE DU FOOT</div>
+        <div class="sub">Best Foods supporte les Lions</div>
+        <div class="model">Offres spéciales épicerie</div>
+        <div class="spec">Sélection Best Foods à prix réduits</div>
+        <a href="#" class="buy">J'EN PROFITE
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
       </div>
-      <!-- ICI l'image produit : <img class="..." src="images/smartphone.png" alt=""> -->
-      <div class="visual"><div class="ph"><svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="7" y="2" width="10" height="20" rx="2"/></svg></div></div>
+      <!-- vidéo promo World Cup Best Foods (verticale) -->
+      <div class="visual"><video autoplay muted loop playsinline><source src="videos/worldcup-bestfoods.mp4" type="video/mp4"></video></div>
       <div class="dots"><i class="on"></i><i></i><i></i><i></i><i></i><i></i></div>
     </div>
 
@@ -277,8 +363,27 @@
           <div class="t">Vendez sur Crystal Shop<small>Ouvrez votre shop ici</small></div>
         </div>
       </div>
-      <!-- ICI image : <img class="promo-mini" src="images/fans.jpg" alt=""> -->
-      <div class="promo-mini ph"></div>
+      <!-- agent CCL surpris -->
+      <img class="promo-mini" src="images/agent.png" alt="Agent Crystal Shop">
+    </div>
+  </div>
+</section>
+
+<!-- ====== BANNIÈRE PAIEMENT (Orange Money / Wave) ====== -->
+<section class="wrap" style="margin-top:18px">
+  <div class="pay-banner">
+    <div class="pb-left">
+      <div class="pb-brand">CRYSTAL<span class="shop">&nbsp;SHOP</span></div>
+      <div class="pb-pre">Prépayez avec <b>Orange Money</b> ou <b>Wave</b></div>
+      <div class="pb-big">
+        <span class="pb-eq">=</span>
+        <span class="pb-txt">LIVRAISON GRATUITE*<small>en point relais</small></span>
+      </div>
+      <div class="pb-fine">*Jusqu'à <b>5 000 FCFA</b> offerts sur la livraison en point relais partout au Sénégal, à partir de <b>10 000 FCFA</b> d'achat.</div>
+    </div>
+    <div class="pb-right">
+      <div class="pay-chip"><span class="dot wave-dot">W</span> Wave</div>
+      <div class="pay-chip"><span class="dot om-dot">OM</span> Orange Money</div>
     </div>
   </div>
 </section>
@@ -288,59 +393,57 @@
   <div class="wrap">
     <div class="panel">
       <div class="deals-head">
-        <h2>Journée Cooling <span>| Meilleures offres</span></h2>
+        <h2>Meilleures offres <span>| Sélection du moment</span></h2>
         <a href="#">Voir plus <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></a>
       </div>
       <div class="deals-row">
 
-        <article class="pcard">
-          <span class="warranty">GARANTIE<br>12 MOIS</span>
-          <span class="disc">-33%</span>
-          <div class="pimg ph"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="6" width="18" height="6" rx="2"/><path d="M6 12v3M12 12v3M18 12v3"/></svg></div>
-          <h3>Climatiseur Split 12000 BTU</h3>
-          <div class="pr">119 900 FCFA</div>
-          <div class="po">180 000 FCFA</div>
+        <article class="pcard" data-cat="Épices" data-desc="Piment rouge moulu de qualité, idéal pour relever vos plats. Sac de 10 kg, origine Inde.">
+          <span class="disc">-20%</span>
+          <img class="pimg" src="images/piment.png" alt="Piment Rouge Best Foods 10kg">
+          <h3>Piment Rouge Best Foods 10kg</h3>
+          <div class="pr">12 000 FCFA</div>
+          <div class="po">15 000 FCFA</div>
         </article>
 
-        <article class="pcard">
-          <span class="disc">-48%</span>
-          <div class="pimg ph"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="9" r="6"/><path d="M12 15v6M9 21h6"/></svg></div>
-          <h3>2 Ventilateurs sur pied</h3>
-          <div class="pr">31 825 FCFA</div>
-          <div class="po">60 686 FCFA</div>
+        <article class="pcard" data-cat="Légumineuses" data-desc="Petits pois secs sélectionnés, riches en protéines. Sac de 20 kg, origine Argentine.">
+          <span class="disc">-18%</span>
+          <img class="pimg" src="images/petits-pois.png" alt="Petits Pois Best Foods 20kg">
+          <h3>Petits Pois Best Foods 20kg</h3>
+          <div class="pr">18 000 FCFA</div>
+          <div class="po">22 000 FCFA</div>
         </article>
 
-        <article class="pcard">
-          <span class="disc">-13%</span>
-          <div class="pimg ph"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="6" width="18" height="6" rx="2"/><path d="M6 12v3M12 12v3M18 12v3"/></svg></div>
-          <h3>Climatiseur Mural Smart</h3>
-          <div class="pr">129 900 FCFA</div>
-          <div class="po">150 000 FCFA</div>
+        <article class="pcard" data-cat="Légumineuses" data-desc="Lentilles triées sur le volet, parfaites pour vos plats mijotés. Conditionnées avec soin.">
+          <span class="disc">-14%</span>
+          <img class="pimg" src="images/lentilles.png" alt="Lentilles Best Foods">
+          <h3>Lentilles Best Foods</h3>
+          <div class="pr">9 500 FCFA</div>
+          <div class="po">11 000 FCFA</div>
         </article>
 
-        <article class="pcard">
-          <span class="warranty" style="background:#2D8CD6">SPLIT<br>INVERTER</span>
-          <span class="disc">-32%</span>
-          <div class="pimg ph"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="6" width="18" height="6" rx="2"/><path d="M6 12v3M12 12v3M18 12v3"/></svg></div>
-          <h3>Climatiseur Inverter</h3>
-          <div class="pr">129 900 FCFA</div>
-          <div class="po">190 997 FCFA</div>
+        <article class="pcard" data-cat="Café" data-desc="Café vert du Kenya, grains de haute qualité. Sac de jute 50 kg, fraîcheur garantie.">
+          <span class="disc">-15%</span>
+          <img class="pimg" src="images/cafe.png" alt="Café Kenya Best Foods 50kg">
+          <h3>Café Kenya Best Foods 50kg</h3>
+          <div class="pr">145 000 FCFA</div>
+          <div class="po">170 000 FCFA</div>
         </article>
 
-        <article class="pcard">
-          <span class="disc">-32%</span>
-          <div class="pimg ph"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="6" width="18" height="6" rx="2"/><path d="M6 12v3M12 12v3M18 12v3"/></svg></div>
-          <h3>Climatiseur Split 9000 BTU</h3>
-          <div class="pr">99 900 FCFA</div>
-          <div class="po">146 654 FCFA</div>
+        <article class="pcard" data-cat="Épices" data-desc="Tamarin naturel, parfait pour jus et sauces. Carton de 10 kg, origine Inde.">
+          <span class="disc">-15%</span>
+          <img class="pimg" src="images/tamarin.png" alt="Tamarin Best Foods 10kg">
+          <h3>Tamarin Best Foods 10kg</h3>
+          <div class="pr">14 000 FCFA</div>
+          <div class="po">16 500 FCFA</div>
         </article>
 
-        <article class="pcard">
-          <span class="disc">-29%</span>
-          <div class="pimg ph"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="6" width="18" height="6" rx="2"/><path d="M6 12v3M12 12v3M18 12v3"/></svg></div>
-          <h3>Climatiseur Split NAC-S12</h3>
-          <div class="pr">123 900 FCFA</div>
-          <div class="po">175 000 FCFA</div>
+        <article class="pcard" data-cat="Mode" data-desc="Foulard / turban satiné, finition brillante et douce. Élégant pour toutes les occasions.">
+          <span class="disc">-25%</span>
+          <img class="pimg" src="images/foulard.png" alt="Foulard Turban Satiné">
+          <h3>Foulard / Turban Satiné</h3>
+          <div class="pr">4 500 FCFA</div>
+          <div class="po">6 000 FCFA</div>
         </article>
 
       </div>
@@ -362,6 +465,228 @@
   </div>
 </section>
 
+<!-- ====== 7. SECTIONS PAR CATÉGORIE (style Jumia) ====== -->
+<section class="wrap">
+
+  <!-- Supermarché -->
+  <div class="cat-section">
+    <div class="cat-bar">
+      <h2>Supermarché</h2>
+      <a href="#">Voir plus <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></a>
+    </div>
+    <div class="cat-row">
+      <article class="pcard" data-cat="Épices" data-desc="Piment rouge moulu de qualité, idéal pour relever vos plats. Sac de 10 kg, origine Inde.">
+        <img class="pimg" src="images/piment.png" alt="Piment Rouge Best Foods 10kg">
+        <h3>Piment Rouge Best Foods 10kg</h3>
+        <div class="pr">12 000 FCFA</div>
+      </article>
+      <article class="pcard" data-cat="Légumineuses" data-desc="Petits pois secs sélectionnés, riches en protéines. Sac de 20 kg, origine Argentine.">
+        <img class="pimg" src="images/petits-pois.png" alt="Petits Pois Best Foods 20kg">
+        <h3>Petits Pois Best Foods 20kg</h3>
+        <div class="pr">18 000 FCFA</div>
+      </article>
+      <article class="pcard" data-cat="Légumineuses" data-desc="Lentilles triées sur le volet, parfaites pour vos plats mijotés. Conditionnées avec soin.">
+        <img class="pimg" src="images/lentilles.png" alt="Lentilles Best Foods">
+        <h3>Lentilles Best Foods</h3>
+        <div class="pr">9 500 FCFA</div>
+      </article>
+      <article class="pcard" data-cat="Café" data-desc="Café vert du Kenya, grains de haute qualité. Sac de jute 50 kg, fraîcheur garantie.">
+        <img class="pimg" src="images/cafe.png" alt="Café Kenya Best Foods 50kg">
+        <h3>Café Kenya Best Foods 50kg</h3>
+        <div class="pr">145 000 FCFA</div>
+      </article>
+      <article class="pcard" data-cat="Épices" data-desc="Tamarin naturel, parfait pour jus et sauces. Carton de 10 kg, origine Inde.">
+        <img class="pimg" src="images/tamarin.png" alt="Tamarin Best Foods 10kg">
+        <h3>Tamarin Best Foods 10kg</h3>
+        <div class="pr">14 000 FCFA</div>
+      </article>
+    </div>
+  </div>
+
+  <!-- Mode -->
+  <div class="cat-section">
+    <div class="cat-bar">
+      <h2>Mode</h2>
+      <a href="#">Voir plus <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></a>
+    </div>
+    <div class="cat-row">
+      <article class="pcard" data-cat="Mode" data-desc="Foulard / turban satiné, finition brillante et douce. Élégant pour toutes les occasions.">
+        <img class="pimg" src="images/foulard.png" alt="Foulard Turban Satiné">
+        <h3>Foulard / Turban Satiné</h3>
+        <div class="pr">4 500 FCFA</div>
+      </article>
+      <!-- emplacements Mode à remplir avec tes produits -->
+      <article class="pcard">
+        <div class="pimg ph"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="8" r="4"/><path d="M5 21a7 7 0 0 1 14 0"/></svg></div>
+        <h3>Ton produit Mode</h3>
+        <div class="pr">— FCFA</div>
+      </article>
+      <article class="pcard">
+        <div class="pimg ph"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M9 4l3 2 3-2 5 4-3 3v9H7v-9L4 8z"/></svg></div>
+        <h3>Ton produit Mode</h3>
+        <div class="pr">— FCFA</div>
+      </article>
+      <article class="pcard">
+        <div class="pimg ph"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="4" y="7" width="16" height="13" rx="2"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg></div>
+        <h3>Ton produit Mode</h3>
+        <div class="pr">— FCFA</div>
+      </article>
+    </div>
+  </div>
+
+</section>
+
+<!-- ====== 8. OFFRES INCONTOURNABLES + BANNIÈRE MODE ====== -->
+<section class="wrap">
+  <div class="promo-head">Offres incontournables</div>
+  <div class="promo-panel">
+    <div class="promo-grid">
+
+      <div class="promo-tile">
+        <div class="pt-left">
+          <span class="ship">Livraison<br>gratuite Dakar</span>
+          <div class="pt-name">Café Kenya Best Foods 50kg</div>
+          <span class="pt-pill">145 000 FCFA</span>
+          <span class="pt-old">170 000 FCFA</span>
+        </div>
+        <div class="pt-circle"><img src="images/cafe.png" alt="Café Kenya"></div>
+      </div>
+
+      <div class="promo-tile">
+        <div class="pt-left">
+          <span class="ship">Livraison<br>gratuite Dakar</span>
+          <div class="pt-name">Piment Rouge Best Foods 10kg</div>
+          <span class="pt-pill">12 000 FCFA</span>
+          <span class="pt-old">15 000 FCFA</span>
+        </div>
+        <div class="pt-circle"><img src="images/piment.png" alt="Piment Rouge"></div>
+      </div>
+
+      <div class="promo-tile">
+        <div class="pt-left">
+          <span class="ship">Livraison<br>gratuite Dakar</span>
+          <div class="pt-name">Tamarin Best Foods 10kg</div>
+          <span class="pt-pill">14 000 FCFA</span>
+          <span class="pt-old">16 500 FCFA</span>
+        </div>
+        <div class="pt-circle"><img src="images/tamarin.png" alt="Tamarin"></div>
+      </div>
+
+      <div class="promo-tile">
+        <div class="pt-left">
+          <span class="ship">Livraison<br>gratuite Dakar</span>
+          <div class="pt-name">Petits Pois Best Foods 20kg</div>
+          <span class="pt-pill">18 000 FCFA</span>
+          <span class="pt-old">22 000 FCFA</span>
+        </div>
+        <div class="pt-circle"><img src="images/petits-pois.png" alt="Petits Pois"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Bannière La mode par Crystal Shop -->
+  <div class="mode-block">
+    <div class="promo-head">La mode par Crystal Shop</div>
+    <div class="mode-banner">
+      <div class="mb-text">
+        <h3>La mode par Crystal Shop</h3>
+        <p>Foulards, turbans satinés et accessoires premium pour sublimer votre style.</p>
+        <a href="#" class="mb-btn">Découvrir</a>
+      </div>
+      <div class="mb-img"><img src="images/foulard.png" alt="Foulard satiné"></div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ====== 9. AUTRES SECTIONS CATÉGORIES (emplacements à remplir) ====== -->
+<section class="wrap">
+
+  <!-- Électroménager, TV & Audio -->
+  <div class="cat-section">
+    <div class="cat-bar">
+      <h2>Électroménager, TV &amp; Audio</h2>
+      <a href="#">Voir plus <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></a>
+    </div>
+    <div class="cat-row">
+      <article class="pcard"><div class="pimg ph"><svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 16l-5-5L5 20"/></svg></div><h3>Ton produit</h3><div class="pr">—</div></article>
+      <article class="pcard"><div class="pimg ph"><svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 16l-5-5L5 20"/></svg></div><h3>Ton produit</h3><div class="pr">—</div></article>
+      <article class="pcard"><div class="pimg ph"><svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 16l-5-5L5 20"/></svg></div><h3>Ton produit</h3><div class="pr">—</div></article>
+      <article class="pcard"><div class="pimg ph"><svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 16l-5-5L5 20"/></svg></div><h3>Ton produit</h3><div class="pr">—</div></article>
+      <article class="pcard"><div class="pimg ph"><svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 16l-5-5L5 20"/></svg></div><h3>Ton produit</h3><div class="pr">—</div></article>
+      <article class="pcard"><div class="pimg ph"><svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 16l-5-5L5 20"/></svg></div><h3>Ton produit</h3><div class="pr">—</div></article>
+    </div>
+  </div>
+
+  <!-- Articles de sport -->
+  <div class="cat-section">
+    <div class="cat-bar">
+      <h2>Articles de sport</h2>
+      <a href="#">Voir plus <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></a>
+    </div>
+    <div class="cat-row">
+      <article class="pcard"><div class="pimg ph"><svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 16l-5-5L5 20"/></svg></div><h3>Ton produit</h3><div class="pr">—</div></article>
+      <article class="pcard"><div class="pimg ph"><svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 16l-5-5L5 20"/></svg></div><h3>Ton produit</h3><div class="pr">—</div></article>
+      <article class="pcard"><div class="pimg ph"><svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 16l-5-5L5 20"/></svg></div><h3>Ton produit</h3><div class="pr">—</div></article>
+      <article class="pcard"><div class="pimg ph"><svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 16l-5-5L5 20"/></svg></div><h3>Ton produit</h3><div class="pr">—</div></article>
+      <article class="pcard"><div class="pimg ph"><svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 16l-5-5L5 20"/></svg></div><h3>Ton produit</h3><div class="pr">—</div></article>
+      <article class="pcard"><div class="pimg ph"><svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 16l-5-5L5 20"/></svg></div><h3>Ton produit</h3><div class="pr">—</div></article>
+    </div>
+  </div>
+
+  <!-- Informatique -->
+  <div class="cat-section">
+    <div class="cat-bar">
+      <h2>Informatique</h2>
+      <a href="#">Voir plus <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></a>
+    </div>
+    <div class="cat-row">
+      <article class="pcard"><div class="pimg ph"><svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 16l-5-5L5 20"/></svg></div><h3>Ton produit</h3><div class="pr">—</div></article>
+      <article class="pcard"><div class="pimg ph"><svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 16l-5-5L5 20"/></svg></div><h3>Ton produit</h3><div class="pr">—</div></article>
+      <article class="pcard"><div class="pimg ph"><svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 16l-5-5L5 20"/></svg></div><h3>Ton produit</h3><div class="pr">—</div></article>
+      <article class="pcard"><div class="pimg ph"><svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 16l-5-5L5 20"/></svg></div><h3>Ton produit</h3><div class="pr">—</div></article>
+      <article class="pcard"><div class="pimg ph"><svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 16l-5-5L5 20"/></svg></div><h3>Ton produit</h3><div class="pr">—</div></article>
+      <article class="pcard"><div class="pimg ph"><svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 16l-5-5L5 20"/></svg></div><h3>Ton produit</h3><div class="pr">—</div></article>
+    </div>
+  </div>
+
+</section>
+
+<!-- ===== Quick view produit (s'ouvre sur l'accueil) ===== -->
+<div class="qv-overlay" id="qv" aria-hidden="true">
+  <div class="qv-bg" data-close></div>
+  <div class="qv-card">
+    <button class="qv-x" data-close aria-label="Fermer">&times;</button>
+    <div class="qv-img"><img id="qv-img" src="" alt=""></div>
+    <div class="qv-info">
+      <div class="qv-badges">
+        <span class="qv-b officielle">Boutique Officielle</span>
+        <span class="qv-b cat" id="qv-cat">SUPER DEAL</span>
+      </div>
+      <h2 class="qv-name" id="qv-name"></h2>
+      <div class="qv-priceblock">
+        <span class="qv-price" id="qv-price"></span>
+        <span class="qv-old" id="qv-old"></span>
+        <span class="qv-disc" id="qv-disc"></span>
+      </div>
+      <p class="qv-desc" id="qv-desc"></p>
+      <div class="qv-row">
+        <div class="qv-qty">
+          <button id="qv-minus" aria-label="Moins">−</button>
+          <span id="qv-qty">1</span>
+          <button id="qv-plus" aria-label="Plus">+</button>
+        </div>
+        <button class="qv-buy" id="qv-buy">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"><path d="M6 19a2 2 0 1 0 4 0M14 19a2 2 0 1 0 4 0"/><path d="M17 17H6V3H4M6 5l14 1-1 7H6"/></svg>
+          J'achète
+        </button>
+      </div>
+      <div class="qv-note">Paiement à la livraison · Commande envoyée via WhatsApp</div>
+    </div>
+  </div>
+</div>
+
 <script>
   /* compte à rebours des ventes flash */
   let total = 19*60 + 10; // 19m 10s
@@ -374,6 +699,40 @@
     mm.textContent=String(m).padStart(2,'0')+'m';
     ss.textContent=String(s).padStart(2,'0')+'s';
   },1000);
+
+  /* ===== Quick view produit : clic sur une carte = fiche sur l'accueil ===== */
+  const WA_QV = "221776990000";
+  const qv = document.getElementById('qv');
+  const $ = id => document.getElementById(id);
+  let qvQty = 1;
+
+  function openQV(card){
+    const get = (sel, attr) => { const el = card.querySelector(sel); return el ? (attr ? el.getAttribute(attr) : el.textContent.trim()) : ''; };
+    $('qv-img').src = get('.pimg','src');
+    $('qv-img').alt = get('h3');
+    $('qv-name').textContent = get('h3');
+    $('qv-price').textContent = get('.pr');
+    $('qv-old').textContent = get('.po');
+    const disc = get('.disc');
+    $('qv-disc').textContent = disc; $('qv-disc').style.display = disc ? '' : 'none';
+    $('qv-cat').textContent = card.getAttribute('data-cat') || 'SUPER DEAL';
+    $('qv-desc').textContent = card.getAttribute('data-desc') || '';
+    qvQty = 1; $('qv-qty').textContent = '1';
+    qv.dataset.name = get('h3'); qv.dataset.price = get('.pr');
+    qv.classList.add('open');
+    document.body.classList.add('no-scroll');
+  }
+  function closeQV(){ qv.classList.remove('open'); document.body.classList.remove('no-scroll'); }
+
+  document.querySelectorAll('.pcard').forEach(c => { if(!c.querySelector('img.pimg')) return; c.style.cursor = 'pointer'; c.addEventListener('click', () => openQV(c)); });
+  document.querySelectorAll('[data-close]').forEach(el => el.addEventListener('click', closeQV));
+  document.addEventListener('keydown', e => { if(e.key === 'Escape') closeQV(); });
+  $('qv-minus').onclick = () => { qvQty = Math.max(1, qvQty - 1); $('qv-qty').textContent = qvQty; };
+  $('qv-plus').onclick  = () => { qvQty++; $('qv-qty').textContent = qvQty; };
+  $('qv-buy').onclick = () => {
+    const msg = `Bonjour Crystal Shop, je souhaite commander :\n\n• Produit : ${qv.dataset.name}\n• Quantité : ${qvQty}\n• Prix unitaire : ${qv.dataset.price}\n\nMerci de me confirmer la disponibilité et la livraison.`;
+    window.open(`https://wa.me/${WA_QV}?text=${encodeURIComponent(msg)}`, '_blank');
+  };
 </script>
 </body>
 </html>
